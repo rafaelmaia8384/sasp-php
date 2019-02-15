@@ -31,7 +31,8 @@
                 '204' => 'demanda/pessoas/pessoas-perfil-comentarios.php',
                 '205' => 'demanda/pessoas/pessoas-buscar.php',
                 '206' => 'demanda/pessoas/pessoas-cadastrar.php',
-                '207' => 'demanda/pessoas/pessoas-meus-cadastros.php'
+                '207' => 'demanda/pessoas/pessoas-meus-cadastros.php',
+                '208' => 'demanda/pessoas/pessoas-buscar-pessoa.php'
             );
 		}
 
