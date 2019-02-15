@@ -47,7 +47,7 @@
 
     function utilsGetSaspImgFolder($modulo, $isBusca) {
 
-        return '../data/sasp-img/' . $modulo . ($isBusca ? '/busca/' : '/principal/');
+        return '../DATA/sasp-img/' . $modulo . ($isBusca ? '/busca/' : '/principal/');
     }
 
     function utilsObterDadosMilitar($matricula) {
