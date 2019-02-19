@@ -19,6 +19,7 @@
                 //Demandas do servidor
                 '11'  => 'demanda/server-user-ip.php',
                 '12'  => 'demanda/server-date-time.php',
+                '13'  => 'demanda/server-upload-image.php',
 
                 //Demandas de usuários
                 '101' => 'demanda/usuarios/usuario-login.php',

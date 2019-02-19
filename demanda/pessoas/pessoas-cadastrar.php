@@ -1,9 +1,6 @@
 <?php
 
-    define('MAX_FILE_SIZE_UPLOAD', 512);
-
-    if (!empty($_POST['id_usuario']) &&             // OK
-        !empty($_POST['nome_alcunha']) &&
+    if (!empty($_POST['nome_alcunha']) &&
         !empty($_POST['nome_completo']) &&
         !empty($_POST['nome_da_mae']) &&
         !empty($_POST['cpf']) &&
@@ -19,115 +16,32 @@
         !empty($_POST['crt_tatuagem']) &&
         !empty($_POST['relato']) &&
         !empty($_POST['historico_criminal']) &&
-        !empty($_POST['areas_de_atuacao'])) {            // OK
+        !empty($_POST['areas_de_atuacao'])) {
 
-        $id_usuario = $fb->escapeString($_POST['id_usuario']);
-        $nome_alcunha = $fb->escapeString($_POST['nome_alcunha']);
-        $nome_completo = $fb->escapeString($_POST['nome_completo']);
-        $nome_da_mae = $fb->escapeString($_POST['nome_da_mae']);
-        $cpf = $fb->escapeString($_POST['cpf']);
-        $rg = $fb->escapeString($_POST['rg']);
-        $data_nascimento = $fb->escapeString($_POST['data_nascimento']);
-        $crt_cor_pele = $fb->escapeString($_POST['crt_cor_pele']);
-        $crt_cor_olhos = $fb->escapeString($_POST['crt_cor_olhos']);
-        $crt_cor_cabelos = $fb->escapeString($_POST['crt_cor_cabelos']);
-        $crt_tipo_cabelos = $fb->escapeString($_POST['crt_tipo_cabelos']);
-        $crt_porte_fisico = $fb->escapeString($_POST['crt_porte_fisico']);
-        $crt_estatura = $fb->escapeString($_POST['crt_estatura']);
-        $crt_deficiente = $fb->escapeString($_POST['crt_deficiente']);
-        $crt_tatuagem = $fb->escapeString($_POST['crt_tatuagem']);
-        $relato = $fb->escapeString($_POST['relato']);
-        $historico_criminal = $fb->escapeString($_POST['historico_criminal']);
-        $areas_de_atuacao = $fb->escapeString($_POST['areas_de_atuacao']);
+        $img_busca = $_POST['img_busca'];
+        $img_principal = $_POST['img_principal'];
+        $nome_alcunha = $_POST['nome_alcunha'];
+        $nome_completo = $_POST['nome_completo'];
+        $nome_da_mae = $_POST['nome_da_mae'];
+        $cpf_pessoa = $_POST['cpf'];
+        $rg = $_POST['rg'];
+        $data_nascimento = $_POST['data_nascimento'];
+        $crt_cor_pele = $_POST['crt_cor_pele'];
+        $crt_cor_olhos = $_POST['crt_cor_olhos'];
+        $crt_cor_cabelos = $_POST['crt_cor_cabelos'];
+        $crt_tipo_cabelos = $_POST['crt_tipo_cabelos'];
+        $crt_porte_fisico = $_POST['crt_porte_fisico'];
+        $crt_estatura = $_POST['crt_estatura'];
+        $crt_deficiente = $_POST['crt_deficiente'];
+        $crt_tatuagem = $_POST['crt_tatuagem'];
+        $relato = $_POST['relato'];
+        $historico_criminal = $_POST['historico_criminal'];
+        $areas_de_atuacao = $_POST['areas_de_atuacao'];
 
-        $img_principal = null;
-        $img_busca = null;
-
-        if (!empty($_FILES['img_principal'])) {
-
-            if ($_FILES['img_principal']['error'] != 0) {
-
-                $fb->error('Erro no envio da imagem. Tente novamente mais tarde.');
-            }
-
-            if (($_FILES['img_principal']['size'] / 1024) > MAX_FILE_SIZE_UPLOAD) {
-
-                $fb->error('O tamanho máximo da imagem deve ser de '. MAX_FILE_SIZE_UPLOAD .'kB.');
-            }
-
-            $img_principal = getImagePath('pessoas', false, $_FILES['img_principal']['name']);
-        }
-        else {
-
-            $fb->error('Arquivo não anexado.');
-        }
-
-        if (!empty($_FILES['img_busca'])) {
-
-            if ($_FILES['img_busca']['error'] != 0) {
-
-                $fb->error('Erro no envio da imagem. Tente novamente mais tarde.');
-            }
-
-            if (($_FILES['img_busca']['size'] / 1024) > MAX_FILE_SIZE_UPLOAD) {
-
-                $fb->error('O tamanho máximo da imagem deve ser de '. MAX_FILE_SIZE_UPLOAD .'kB.');
-            }
-
-            $img_busca = getImagePath('pessoas', true, $_FILES['img_busca']['name']);
-        }
-        else {
-
-            $fb->error('Arquivo não anexado.');
-        }
-
-        $img_count = 0;
-
-        if ($img_principal != null && !file_exists($img_principal)) {
-
-            $img_count++;
-
-            if (!file_exists(dirname($img_principal))) {
-
-                if (!mkdir(dirname($img_principal), 0755, true)) {
-
-                    $fb->error('O arquivo não foi salvo no servidor. Tente novamente mais tarde.');
-                }
-            }
-
-            if (!move_uploaded_file($_FILES['img_principal']['tmp_name'], $img_principal)) {
-
-                $fb->error('O arquivo não foi salvo no servidor. Tente novamente mais tarde.');
-            }
-        }
-
-        if ($img_busca != null && !file_exists($img_busca)) {
-
-            $img_count++;
-
-            if (!file_exists(dirname($img_busca))) {
-
-                if (!mkdir(dirname($img_busca), 0755, true)) {
-
-                    $fb->error('O arquivo não foi salvo no servidor. Tente novamente mais tarde.');
-                }
-            }
-
-            if (!move_uploaded_file($_FILES['img_busca']['tmp_name'], $img_busca)) {
-
-                $fb->error('O arquivo não foi salvo no servidor. Tente novamente mais tarde.');
-            }
-        }
-
-        $principal_name = $fb->escapeString($_FILES['img_principal']['name']);
-        $busca_name = $fb->escapeString($_FILES['img_busca']['name']);
-
-        require '../sistema/metaphonePTBR.php';
-
+        require '../../sistema/MtaphonePTBR.php';
         $metaphone = new Metaphone();
 
         $nome_alcunha_soundex = $metaphone->getPhraseMetaphone($nome_alcunha);
-
         $nome_alcunha = ucwords(strtolower(trim($nome_alcunha)));
 
         $nome_completo_soundex = '';
@@ -135,7 +49,6 @@
         if ($nome_completo != 'null') {
 
             $nome_completo_soundex = $metaphone->getPhraseMetaphone($nome_completo);
-
             $nome_completo = ucwords(strtolower(trim($nome_completo)));
         }
         else {
@@ -165,29 +78,36 @@
 
         $agora = date('Y-m-d H:i:s', time());
 
-        $id_suspeito = '';
+        $id_pessoa = '';
 
         do {
 
-            $id_suspeito = generateId();
+            $id_pessoa = generateId();
 
-            $result = $fb->dbRead("SELECT id FROM tb_suspeitos WHERE id_suspeito = {$id_suspeito} LIMIT 1");
+            // -------------------------------------------------------------------
+            // -------------------------------------------------------------------
+            //         MUDAR A LINHA ABAIXO PARA TB_PESSOAS
+            // -------------------------------------------------------------------
+            // -------------------------------------------------------------------
+
+            $result = $this->db->dbRead("SELECT id FROM tb_pessoas_test WHERE id_pessoa = {$id_pessoa} LIMIT 1");
         }
         while (is_array($result));
 
-        $suspeito = array(
+        $pessoa = array(
 
-            'id_usuario'				=> $id_usuario,
-            'id_suspeito'               => $id_suspeito,
-            'img_principal' 			=> $principal_name,
-            'img_busca'					=> $busca_name,
+            'cpf_usuario'				=> $cpf,
+            'id_pessoa'                 => $id_pessoa,
+            'img_principal' 			=> $img_principal,
+            'img_busca'					=> $img_busca,
+            'img_enviada'               => 0,
 
             'nome_alcunha'              => $nome_alcunha,
             'nome_alcunha_soundex'      => $nome_alcunha_soundex,
             'nome_completo'             => $nome_completo,
             'nome_completo_soundex'     => $nome_completo_soundex,
             'nome_da_mae'               => $nome_da_mae,
-            'cpf'                       => $cpf,
+            'cpf'                       => $cpf_pessoa,
             'rg'                        => $rg,
             'data_nascimento'           => $data_nascimento,
 
@@ -208,76 +128,46 @@
             'num_visualizacoes'         => 0,
 
             'data_registro'             => $agora,
-            'suspeito_excluido'         => 0,
-            'protect_hash'              => $protect_hash
+            'pessoa_excluida'           => 0
         );
 
-        $fb->dbInsert('tb_suspeitos', $suspeito);
+        // -------------------------------------------------------------------
+            // -------------------------------------------------------------------
+            //         MUDAR A LINHA ABAIXO PARA TB_PESSOAS
+            // -------------------------------------------------------------------
+            // -------------------------------------------------------------------
 
-        /*DBExecuteMultiQuery(
+        $this->db->dbInsert('tb_pessoas_test', $pessoa);
 
-            "UPDATE tb_usuarios SET num_suspeitos = num_suspeitos + 1 WHERE id_usuario = {$id_usuario} LIMIT 1;\n".
-            "UPDATE tb_sistema SET total_imagens_spt = total_imagens_spt + {$img_count}, total_suspeitos = total_suspeitos + 1 WHERE id = 1 LIMIT 1;\n"
-        );*/
+        if (!empty($_POST['imagens']) && is_array($_POST['imagens'])) {
 
-        $uf = array(
+            $imagens = $_POST['imagens'];
+            $max = count($imagens);
 
-            '1' => 'AC',
-            '2' => 'AL',
-            '3' => 'AM',
-            '4' => 'AP',
-            '5' => 'BA',
-            '6' => 'CE',
-            '7' => 'DF',
-            '8' => 'ES',
-            '9' => 'GO',
-            '10' => 'MA',
-            '11' => 'MG',
-            '12' => 'MS',
-            '13' => 'MT',
-            '14' => 'PA',
-            '15' => 'PB',
-            '16' => 'PE',
-            '17' => 'PI',
-            '18' => 'PR',
-            '19' => 'RJ',
-            '20' => 'RN',
-            '21' => 'RO',
-            '22' => 'RR',
-            '23' => 'RS',
-            '24' => 'SC',
-            '25' => 'SE',
-            '26' => 'SP',
-            '27' => 'TO'
-        );
+            for ($a = 0; $a < $max; $a++) {
 
-        $uf_string = '';
+                $imagens_img_busca = $imagens[$a]['img_busca'];
+                $imagens_img_principal = $imagens[$a]['img_principal'];
 
-        for ($b = 0; $b < 27; $b++) {
+                $img = array (
 
-            $shift = 1 << $b;
+                    'id_pessoa'     => $id_pessoa,
+                    'cpf_usuario'   => $cpf,
+                    'img_busca'     => $imagens_img_busca,
+                    'img_principal' => $imagens_img_principal,
+                    'img_enviada'   => 0,
+                    'data_registro' => $agora
+                );
 
-            if (($suspeito['areas_de_atuacao'] & $shift) > 0) {
-
-                $uf_string .= $uf[$b+1];
-                $uf_string .= ', ';
+                $this->db->dbInsert('tb_pessoas_imagem_test', $img);
             }
         }
 
-        $uf_string = substr($uf_string, 0, -2);
-
-        $suspeito['areas_de_atuacao'] = $uf_string;
-
-        $fb->success('Suspeito cadastrado.', $suspeito);
+        $this->db->saspSuccess('Pessoa cadastrada.');
     }
     else {
 
-        $fb->error('Acesso negado.');
-    }
-
-    function getImagePath($folder, $isBusca, $image_name) {
-
-        return '../../data/sasp-data/' . $folder . '/' . ($isBusca ? 'busca/' : 'principal/') . $image_name;
+        $this->db->saspError('Acesso negado.');
     }
 
     function generateId() {

@@ -125,8 +125,8 @@
         $lotacao_atual =  $result['cop']['unit']['name'];
         $ip = utilsObterIP();
 
-        $imgBuscaName = time() . '-' . $_FILES['img_busca']['name'];
-        $imgPrincipalName = time() . '-' . $_FILES['img_principal']['name'];
+        $imgBuscaName = $_FILES['img_busca']['name'];
+        $imgPrincipalName = $_FILES['img_principal']['name'];
 
         $agora = date('Y-m-d H:i:s', time());
 
