@@ -1,6 +1,8 @@
 <?php
 
-    if (!empty($_POST['nome_alcunha']) &&
+    if (!empty($_POST['img_busca']) &&
+        !empty($_POST['img_principal']) &&
+        !empty($_POST['nome_alcunha']) &&
         !empty($_POST['nome_completo']) &&
         !empty($_POST['nome_da_mae']) &&
         !empty($_POST['cpf']) &&
@@ -20,6 +22,7 @@
 
         $img_busca = $_POST['img_busca'];
         $img_principal = $_POST['img_principal'];
+
         $nome_alcunha = $_POST['nome_alcunha'];
         $nome_completo = $_POST['nome_completo'];
         $nome_da_mae = $_POST['nome_da_mae'];
@@ -38,7 +41,7 @@
         $historico_criminal = $_POST['historico_criminal'];
         $areas_de_atuacao = $_POST['areas_de_atuacao'];
 
-        require '../../sistema/MtaphonePTBR.php';
+        require 'sistema/MetaphonePTBR.php';
         $metaphone = new Metaphone();
 
         $nome_alcunha_soundex = $metaphone->getPhraseMetaphone($nome_alcunha);
@@ -98,6 +101,7 @@
 
             'cpf_usuario'				=> $cpf,
             'id_pessoa'                 => $id_pessoa,
+
             'img_principal' 			=> $img_principal,
             'img_busca'					=> $img_busca,
             'img_enviada'               => 0,
@@ -146,18 +150,21 @@
 
             for ($a = 0; $a < $max; $a++) {
 
-                $imagens_img_busca = $imagens[$a]['img_busca'];
-                $imagens_img_principal = $imagens[$a]['img_principal'];
-
                 $img = array (
 
                     'id_pessoa'     => $id_pessoa,
                     'cpf_usuario'   => $cpf,
-                    'img_busca'     => $imagens_img_busca,
-                    'img_principal' => $imagens_img_principal,
+                    'img_busca'     => $imagens[$a]['img_busca'],
+                    'img_principal' => $imagens[$a]['img_principal'],
                     'img_enviada'   => 0,
                     'data_registro' => $agora
                 );
+
+                // -------------------------------------------------------------------
+            // -------------------------------------------------------------------
+            //         MUDAR A LINHA ABAIXO PARA TB_PESSOAS_IMAGEM
+            // -------------------------------------------------------------------
+            // -------------------------------------------------------------------
 
                 $this->db->dbInsert('tb_pessoas_imagem_test', $img);
             }

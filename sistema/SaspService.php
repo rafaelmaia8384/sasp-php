@@ -21,9 +21,14 @@
                 '12'  => 'demanda/server-date-time.php',
                 '13'  => 'demanda/server-upload-image.php',
 
-                //Demandas de usuários
+                //Demandas de usuários (sem token)
                 '101' => 'demanda/usuarios/usuario-login.php',
                 '102' => 'demanda/usuarios/usuario-cadastrar.php',
+
+                //Demandas de usuários (com token)
+                '111' => 'demanda/usuarios/xxx1.php',
+                '112' => 'demanda/usuarios/xxx2.php',
+                '113' => 'demanda/usuarios/xxx3.php',
 
                 //Demandas de pessoas
                 '201' => 'demanda/pessoas/pessoas-ultimos-cadastros.php',
@@ -38,6 +43,12 @@
 		}
 
 		function initService() {
+
+            //
+            //
+            // LEMBRAR DE AJEITAR ESSE ESCAPE CONTENT QUE NAO TA FUNCIONANDO
+            //
+            //
 
             $this->escapeContent($_POST);
 
@@ -72,24 +83,21 @@
             $network = $_POST['network'];
             $codigo = $_POST['codigo'];
 
-            $cpf = 0; //será usado nos includes >= 103
+            $cpf = 0;
             $search_limit = MYSQL_RETURN_SEARCH_LIMIT;
 
-            if ($this->demanda >= 101) {
+            if ($this->demanda > 110) {
 
-                if (!empty($_POST['token'])) {
+                if ($this->isSessionExpired($_POST['token'])) {
 
-                    if ($this->isSessionExpired($_POST['token'])) {
-
-                        $this->db->saspError("Sessão expirada.");
-                    }
-
-                    $cpf = $this->serviceLogToken($_POST['token']);
+                    $this->db->saspError("Sessão expirada.");
                 }
-                else {
 
-                    $this->serviceLogCPF($_POST['cpf']);
-                }
+                $cpf = $this->serviceLogToken($_POST['token']);
+            }
+            else if ($this->demanda > 100) {
+
+                $this->serviceLogCPF($_POST['cpf']);
             }
 
             include($this->demandas[$this->demanda]);

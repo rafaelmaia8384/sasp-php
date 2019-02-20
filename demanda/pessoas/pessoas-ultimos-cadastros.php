@@ -8,7 +8,13 @@
 
         $limit = ($index - 1) * $search_limit;
 
-        $result = $this->db->dbRead("SELECT * FROM tb_pessoas WHERE pessoa_excluida = 0 AND data_registro < '$date_time_max' ORDER BY data_registro DESC LIMIT {$limit}, {$search_limit}");
+        // -------------------------------------------------------------------
+            // -------------------------------------------------------------------
+            //         MUDAR A LINHA ABAIXO PARA TB_PESSOAS
+            // -------------------------------------------------------------------
+            // -------------------------------------------------------------------
+
+        $result = $this->db->dbRead("SELECT * FROM tb_pessoas_test WHERE img_enviada = 1 AND pessoa_excluida = 0 AND data_registro < '$date_time_max' ORDER BY data_registro DESC LIMIT {$limit}, {$search_limit}");
 
         if (is_array($result)) {
 

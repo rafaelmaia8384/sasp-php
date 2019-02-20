@@ -1,5 +1,5 @@
 <?php
 
-    $this->db->saspError('teste.');
+    $this->db->saspError('Testando envio.');
 
 ?>
