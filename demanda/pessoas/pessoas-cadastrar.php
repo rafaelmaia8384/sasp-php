@@ -87,13 +87,7 @@
 
             $id_pessoa = generateId();
 
-            // -------------------------------------------------------------------
-            // -------------------------------------------------------------------
-            //         MUDAR A LINHA ABAIXO PARA TB_PESSOAS
-            // -------------------------------------------------------------------
-            // -------------------------------------------------------------------
-
-            $result = $this->db->dbRead("SELECT id FROM tb_pessoas_test WHERE id_pessoa = {$id_pessoa} LIMIT 1");
+            $result = $this->db->dbRead("SELECT id FROM tb_pessoas WHERE id_pessoa = {$id_pessoa} LIMIT 1");
         }
         while (is_array($result));
 
@@ -135,13 +129,7 @@
             'pessoa_excluida'           => 0
         );
 
-        // -------------------------------------------------------------------
-            // -------------------------------------------------------------------
-            //         MUDAR A LINHA ABAIXO PARA TB_PESSOAS
-            // -------------------------------------------------------------------
-            // -------------------------------------------------------------------
-
-        $this->db->dbInsert('tb_pessoas_test', $pessoa);
+        $this->db->dbInsert('tb_pessoas', $pessoa);
 
         if (!empty($_POST['imagens']) && is_array($_POST['imagens'])) {
 
@@ -152,21 +140,16 @@
 
                 $img = array (
 
-                    'id_pessoa'     => $id_pessoa,
-                    'cpf_usuario'   => $cpf,
-                    'img_busca'     => $imagens[$a]['img_busca'],
-                    'img_principal' => $imagens[$a]['img_principal'],
-                    'img_enviada'   => 0,
-                    'data_registro' => $agora
+                    'id_pessoa'         => $id_pessoa,
+                    'cpf_usuario'       => $cpf,
+                    'img_busca'         => $imagens[$a]['img_busca'],
+                    'img_principal'     => $imagens[$a]['img_principal'],
+                    'img_enviada'       => 0,
+                    'imagem_excluida'   => 0,
+                    'data_registro'     => $agora
                 );
 
-                // -------------------------------------------------------------------
-            // -------------------------------------------------------------------
-            //         MUDAR A LINHA ABAIXO PARA TB_PESSOAS_IMAGEM
-            // -------------------------------------------------------------------
-            // -------------------------------------------------------------------
-
-                $this->db->dbInsert('tb_pessoas_imagem_test', $img);
+                $this->db->dbInsert('tb_pessoas_imagem', $img);
             }
         }
 

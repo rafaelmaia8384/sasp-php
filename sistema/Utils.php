@@ -72,8 +72,6 @@
 
         if (json_last_error() !== JSON_ERROR_NONE) {
 
-            //$this->db->saspError("Erro de comunicação com servidor externo.\n\nPor favor, tente novamente após alguns minutos.");
-
             return array("error" => 1);
         }
 
@@ -96,8 +94,6 @@
         $result = json_decode($result, true);
 
         if (json_last_error() !== JSON_ERROR_NONE) {
-
-            //$this->db->saspError("Erro na solicitação.\n\nSua matrícula está correta?");
 
             return array("error" => 2);
         }

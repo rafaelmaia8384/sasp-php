@@ -28,6 +28,6 @@
 	//Definições de limites
 
 	define('MYSQL_RETURN_SEARCH_LIMIT', 15);							//15 linhas por vez no retorno dos resultados MYSQL
-	define('FILE_SIZE_UPLOAD_MAX', 512);								//512 kb de tamanho máximo para imagens enviadas pro servidor.
+	define('FILE_SIZE_UPLOAD_MAX', 800);								//800 kb de tamanho máximo para imagens enviadas pro servidor.
 
 ?>

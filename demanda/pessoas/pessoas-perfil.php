@@ -3,14 +3,8 @@
 	if (!empty($_POST['id_pessoa'])) {
 
         $id_pessoa = $_POST['id_pessoa'];
-        
-        // -------------------------------------------------------------------
-            // -------------------------------------------------------------------
-            //         MUDAR A LINHA ABAIXO PARA TB_PESSOAS
-            // -------------------------------------------------------------------
-            // -------------------------------------------------------------------
 
-        $result = $this->db->dbRead("SELECT * FROM tb_pessoas_test WHERE pessoa_excluida = 0 AND id_pessoa = {$id_pessoa} LIMIT 1");
+        $result = $this->db->dbRead("SELECT * FROM tb_pessoas WHERE pessoa_excluida = 0 AND id_pessoa = {$id_pessoa} LIMIT 1");
 
         if (is_array($result)) {
 

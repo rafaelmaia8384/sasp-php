@@ -78,12 +78,12 @@
 
         if (!empty($_FILES['img_busca'])) {
 
-            if ($_FILES['img_principal']['error'] != 0) {
+            if ($_FILES['img_busca']['error'] != 0) {
 
                 $this->db->saspError('Erro no envio da imagem. Tente novamente mais tarde.');
             }
 
-            if (($_FILES['img_principal']['size'] / 1024) > FILE_SIZE_UPLOAD_MAX) {
+            if (($_FILES['img_busca']['size'] / 1024) > FILE_SIZE_UPLOAD_MAX) {
 
                 $this->db->saspError('O tamanho máximo da imagem deve ser de '. FILE_SIZE_UPLOAD_MAX .'kB.');
             }

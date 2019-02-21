@@ -4,7 +4,7 @@
 
 		$id_pessoa = $_POST['id_pessoa'];
 
-        $result = $this->db->dbRead("SELECT img_busca, img_principal, cpf_usuario FROM tb_pessoas_imagem WHERE id_pessoa = {$id_pessoa} AND item_excluido = 0");
+        $result = $this->db->dbRead("SELECT img_busca, img_principal, cpf_usuario FROM tb_pessoas_imagem WHERE id_pessoa = {$id_pessoa} AND imagem_excluida = 0");
 
         if (is_array($result)) {
 
