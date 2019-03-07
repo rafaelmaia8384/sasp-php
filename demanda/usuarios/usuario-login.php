@@ -46,9 +46,9 @@
                 $this->db->saspError('Solicitação de acesso em análise.'); //Tratar esse erro no frontend.
             }
 
-            if ($result[0]['conta_bloqueada'] == 1) {
+            if ($result[0]['usuario_bloqueado'] == 1) {
 
-                $this->db->saspError("Acesso negado.\n\nSua conta está temporariamente bloqueada.");
+                $this->db->saspError("Acesso negado.\n\nSeu acesso está temporariamente bloqueado.");
             }
 
             //LOGIN EFETUADO
@@ -57,7 +57,7 @@
             $result[0]['token'] = $token;
 
             $this->db->dbExecute("UPDATE tb_sistema_sessao SET token = '{$token}', data_registro = NOW() WHERE cpf = {$cpf} LIMIT 1");
-            $this->db->dbExecute("UPDATE tb_usuarios SET id_aparelho = '{$device}', imei_ultimo = '{$imei}', mac_ultimo = '{$mac}', ultimo_login = NOW() WHERE cpf = {$cpf} AND conta_excluida = 0 LIMIT 1");
+            $this->db->dbExecute("UPDATE tb_usuarios SET id_aparelho = '{$device}', imei_ultimo = '{$imei}', mac_ultimo = '{$mac}', ultimo_login = NOW() WHERE cpf = {$cpf} AND usuario_excluido = 0 LIMIT 1");
             $this->db->saspSuccess("Login efetuado.", $result[0]);
         }
         else {

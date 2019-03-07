@@ -30,7 +30,7 @@
         }
 
         //Verificar se o CPF já está cadastrado no sistema
-        $result = $this->db->dbRead("SELECT cadastro_analisado, cadastro_negado FROM tb_usuarios WHERE cpf = {$cpf} AND conta_excluida = 0 ORDER BY data_registro DESC LIMIT 1");
+        $result = $this->db->dbRead("SELECT cadastro_analisado, cadastro_negado FROM tb_usuarios WHERE cpf = {$cpf} AND usuario_excluido = 0 ORDER BY data_registro DESC LIMIT 1");
 
         if (is_array($result)) {
 
@@ -45,7 +45,7 @@
         }
 
         //Verificar se a matrícula já está cadastrada no sistema
-        $result = $this->db->dbRead("SELECT cadastro_analisado, cadastro_negado FROM tb_usuarios WHERE matricula = {$matricula} AND conta_excluida = 0 ORDER BY data_registro DESC LIMIT 1");
+        $result = $this->db->dbRead("SELECT cadastro_analisado, cadastro_negado FROM tb_usuarios WHERE matricula = {$matricula} AND usuario_excluido = 0 ORDER BY data_registro DESC LIMIT 1");
 
         if (is_array($result)) {
 
@@ -157,12 +157,12 @@
             'imei_ultimo'                   => $imei,
             'mac_cadastro'                  => $mac,
             'mac_ultimo'                    => $mac,
-            'nivel_de_acesso'               => 1,
+            'permissoes'                    => 1,
             'cadastro_analisado'            => 0,
             'cadastro_analisado_por'        => 0,
             'cadastro_negado'               => 0,
-            'conta_excluida'                => 0,
-            'conta_bloqueada'               => 0
+            'usuario_excluido'                => 0,
+            'usuario_bloqueado'               => 0
         );
 
         $imgBuscaPath = utilsGetSaspImgFolder('usuarios', true) . $imgBuscaName;

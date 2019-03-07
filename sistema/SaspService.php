@@ -38,7 +38,10 @@
                 '205' => 'demanda/pessoas/pessoas-buscar.php',
                 '206' => 'demanda/pessoas/pessoas-cadastrar.php',
                 '207' => 'demanda/pessoas/pessoas-meus-cadastros.php',
-                '208' => 'demanda/pessoas/pessoas-buscar-pessoa.php'
+                '208' => 'demanda/pessoas/pessoas-buscar-pessoa.php', 
+
+                //Demandas de abordagens
+                '301' => 'demanda/abordagens/abordagens-ultimos-cadastros.php'
             );
 		}
 

@@ -76,7 +76,7 @@
         }
         else {
 
-            $this->db->saspError('Nenhum resultado.');
+            $this->db->saspError('Nenhuma pessoa cadastrada.');
         }
 	}
 	else {

@@ -15,11 +15,6 @@
 	define('CORE_PMPB_LOGIN', 'test@test.com');
 	define('CORE_PMPB_PASS', '12345678');
 
-	//Definições de LOG do sistema
-
-	define('SISTEMA_LOG_USUARIO_LOGIN', 'USUARIO_LOGIN');
-	define('SISTEMA_LOG_USUARIO_CADASTRO', 'USUARIO_CADASTRO');
-
 	//Definições de tempo e prazos
 
 	define('TEMPO_USUARIO_IDAPARELHO_HORAS', 96);						//96 horas para o usuário acessar o sistema com um aparelho diferente.
@@ -28,6 +23,20 @@
 	//Definições de limites
 
 	define('MYSQL_RETURN_SEARCH_LIMIT', 15);							//15 linhas por vez no retorno dos resultados MYSQL
-	define('FILE_SIZE_UPLOAD_MAX', 800);								//800 kb de tamanho máximo para imagens enviadas pro servidor.
+    define('FILE_SIZE_UPLOAD_MAX', 800);								//800 kb de tamanho máximo para imagens enviadas pro servidor.
+
+    //Definições de permissões de usuários
+
+    define('PERMISSAO_USUARIO_VER_USUARIOS', 0);
+    define('PERMISSAO_USUARIO_BLOQUEAR_USUARIOS', 1);
+    define('PERMISSAO_USUARIO_EXCLUIR_USUARIOS', 2);
+    define('PERMISSAO_USUARIO_ANALISAR_SOLICITACOES_ACESSO', 3);
+    define('PERMISSAO_USUARIO_EDITAR_CADASTROS', 4);
+    define('PERMISSAO_USUARIO_EXCLUIR_CADASTROS', 5);
+    define('PERMISSAO_USUARIO_VER_INFORMES_COMUNS', 6);
+    define('PERMISSAO_USUARIO_VER_INFORMES_MILITARES', 7);
+    define('PERMISSAO_USUARIO_EMITIR_ALERTAS', 8);
+    define('PERMISSAO_USUARIO_MODIFICAR_PERMISSOES', 9);
+    define('PERMISSAO_USUARIO_NIVEL5', 10);
 
 ?>

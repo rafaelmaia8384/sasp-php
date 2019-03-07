@@ -162,7 +162,7 @@ if (!empty($_POST['index'])                 &&
 
             $result_array = array('Resultado' => $result);
 
-			//DBExecuteNoError("UPDATE tb_usuarios SET total_buscas = total_buscas + 1 WHERE id_usuario = {$id_usuario} AND conta_excluida = 0 LIMIT 1");
+			//DBExecuteNoError("UPDATE tb_usuarios SET total_buscas = total_buscas + 1 WHERE id_usuario = {$id_usuario} AND usuario_excluido = 0 LIMIT 1");
 
             $this->db->saspSuccess('Busca realizada.', $result_array);
         }
