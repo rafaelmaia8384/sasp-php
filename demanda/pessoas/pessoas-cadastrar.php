@@ -153,7 +153,9 @@
             }
         }
 
-        $this->db->saspSuccess('Pessoa cadastrada.');
+        $id_pessoa = array('id_pessoa' => $id_pessoa);
+
+        $this->db->saspSuccess('Pessoa cadastrada.', $id_pessoa);
     }
     else {
 

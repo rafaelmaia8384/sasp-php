@@ -13,7 +13,13 @@
 	define('CORE_PMPB_URL_LOGIN', 'https://stagebo.apps.pm.pb.gov.br/api/login');
 	define('CORE_PMPB_URL_MILITAR', 'https://stagebo.apps.pm.pb.gov.br/api/cops/');
 	define('CORE_PMPB_LOGIN', 'test@test.com');
-	define('CORE_PMPB_PASS', '12345678');
+    define('CORE_PMPB_PASS', '12345678');
+    
+    //Definições de acesso ao S3 CEPH
+
+    define('AWS_BUCKET_SASP', 'sasp');
+    define('AWS_KEY', 'W3545FTHIXC1QF7IWD3M');
+    define('AWS_SECRET_KEY', 'RfcO23aN2vi4OQjPzeAxqC18diYjEwHUbbz755NZ');
 
 	//Definições de tempo e prazos
 

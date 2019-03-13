@@ -1,2 +1,0 @@
-# sasp-php
-SASP Webservice
