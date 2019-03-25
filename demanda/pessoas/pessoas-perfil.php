@@ -8,6 +8,27 @@
 
         if (is_array($result)) {
 
+            $result2 = $this->db->dbRead("SELECT * FROM tb_pessoas_imagem WHERE imagem_excluida = 0 AND img_enviada = 1 AND id_pessoa = {$id_pessoa}");
+
+            if (is_array($result2)) {
+
+                $result[0]['Imagens'] = $result2;
+            }
+
+            $result3 = $this->db->dbRead("SELECT tb_abordagens.*, ( SELECT COUNT(id) FROM tb_abordagens_pessoa WHERE tb_abordagens_pessoa.id_abordagem = tb_abordagens.id_abordagem ) as numero_abordados FROM tb_abordagens INNER JOIN tb_abordagens_pessoa ON tb_abordagens.id_abordagem = tb_abordagens_pessoa.id_abordagem WHERE tb_abordagens_pessoa.id_pessoa = {$id_pessoa} ORDER BY tb_abordagens.data_registro DESC LIMIT 10");
+
+            if (is_array($result3)) {
+
+                $result[0]['Abordagens'] = $result3;
+            }
+
+            $result4 = $this->db->dbRead("SELECT * FROM tb_pessoas_atualizacoes WHERE id_pessoa = {$id_pessoa} AND atualizacao_excluida = 0 ORDER BY data_registro DESC LIMIT 5");
+
+            if (is_array($result4)) {
+
+                $result[0]['Atualizacoes'] = $result4;
+            }
+
 			$id_pessoa = $result[0]['id_pessoa'];
 
             $uf = array(
@@ -44,8 +65,6 @@
             $total = count($result);
 
             for ($a = 0; $a < $total; $a++) {
-
-                $result[$a]['protect_hash'] = '';
 
                 $uf_string = '';
 

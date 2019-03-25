@@ -33,16 +33,19 @@
                 //Demandas de pessoas
                 '201' => 'demanda/pessoas/pessoas-ultimos-cadastros.php',
                 '202' => 'demanda/pessoas/pessoas-perfil.php',
-                '203' => 'demanda/pessoas/pessoas-perfil-imagens.php',
-                '204' => 'demanda/pessoas/pessoas-perfil-comentarios.php',
-                '205' => 'demanda/pessoas/pessoas-buscar.php',
-                '206' => 'demanda/pessoas/pessoas-cadastrar.php',
-                '207' => 'demanda/pessoas/pessoas-meus-cadastros.php',
-                '208' => 'demanda/pessoas/pessoas-buscar-pessoa.php', 
+                '203' => 'demanda/pessoas/pessoas-buscar.php',
+                '204' => 'demanda/pessoas/pessoas-cadastrar.php',
+                '205' => 'demanda/pessoas/pessoas-meus-cadastros.php',
+                '206' => 'demanda/pessoas/pessoas-buscar-pessoa.php',
+                '207' => 'demanda/pessoas/pessoas-buscar-pessoa-simple.php',
+                '208' => 'demanda/pessoas/pessoas-atualizar-perfil.php',
 
                 //Demandas de abordagens
                 '301' => 'demanda/abordagens/abordagens-ultimos-cadastros.php',
-                '302' => 'demanda/abordagens/abordagens-cadastrar.php'
+                '302' => 'demanda/abordagens/abordagens-cadastrar.php',
+                '303' => 'demanda/abordagens/abordagens-perfil.php',
+                '304' => 'demanda/abordagens/abordagens-buscar.php',
+                '305' => 'demanda/abordagens/abordagens-cadastrar-veiculo.php'
             );
 		}
 
