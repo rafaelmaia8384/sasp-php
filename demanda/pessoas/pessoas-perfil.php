@@ -15,7 +15,7 @@
                 $result[0]['Imagens'] = $result2;
             }
 
-            $result3 = $this->db->dbRead("SELECT tb_abordagens.*, ( SELECT COUNT(id) FROM tb_abordagens_pessoa WHERE tb_abordagens_pessoa.id_abordagem = tb_abordagens.id_abordagem ) as numero_abordados FROM tb_abordagens INNER JOIN tb_abordagens_pessoa ON tb_abordagens.id_abordagem = tb_abordagens_pessoa.id_abordagem WHERE tb_abordagens_pessoa.id_pessoa = {$id_pessoa} ORDER BY tb_abordagens.data_registro DESC LIMIT 10");
+            $result3 = $this->db->dbRead("SELECT tb_abordagens.*, ( SELECT COUNT(id) FROM tb_abordagens_pessoa WHERE tb_abordagens_pessoa.id_abordagem = tb_abordagens.id_abordagem ) as numero_abordados FROM tb_abordagens INNER JOIN tb_abordagens_pessoa ON tb_abordagens.id_abordagem = tb_abordagens_pessoa.id_abordagem WHERE tb_abordagens_pessoa.id_pessoa = {$id_pessoa} ORDER BY tb_abordagens.data_registro DESC LIMIT 50");
 
             if (is_array($result3)) {
 

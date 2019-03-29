@@ -89,6 +89,26 @@
             $this->db->saspError('Acesso negado.');
         }
 
+        if (!empty($_POST['veiculos']) && is_array($_POST['veiculos'])) {
+
+            $veiculos = $_POST['veiculos'];
+            $max = count($veiculos);
+
+            for ($a = 0; $a < $max; $a++) {
+
+                $id_veiculo = $veiculos[$a]['id_veiculo'];
+
+                $veiculo = array(
+
+                    'id_veiculo'    => $id_veiculo,
+                    'id_abordagem'  => $id_abordagem,
+                    'veiculo_excluido'  => 0
+                );
+
+                $this->db->dbInsert('tb_abordagens_veiculo', $veiculo);
+            }
+        }
+
         if (!empty($_POST['matriculas']) && is_array($_POST['matriculas'])) {
 
             $matriculas = $_POST['matriculas'];

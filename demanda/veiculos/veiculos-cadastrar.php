@@ -14,14 +14,13 @@
 
             $id_veiculo = generateId();
 
-            $result = $this->db->dbRead("SELECT id FROM tb_abordagens_veiculo WHERE id_veiculo = {$id_veiculo} LIMIT 1");
+            $result = $this->db->dbRead("SELECT id FROM tb_veiculos WHERE id_veiculo = {$id_veiculo} LIMIT 1");
         }
         while (is_array($result));
 
         $veiculo = array(
 
             'id_veiculo'            => $id_veiculo,
-            'id_abordagem'          => 0,
             'cpf_usuario'           => $cpf,
             'tipo_placa'            => $tipo_placa,
             'placa'                 => $placa,
@@ -30,7 +29,7 @@
             'veiculo_excluido'      => 0
         );
 
-        $this->db->dbInsert('tb_abordagens_veiculo', $veiculo);
+        $this->db->dbInsert('tb_veiculos', $veiculo);
 
         if (!empty($_POST['imagens']) && is_array($_POST['imagens'])) {
 
@@ -49,7 +48,7 @@
                     'imagem_excluida'   => 0
                 );
 
-                $this->db->dbInsert('tb_abordagens_veiculo_imagem', $img);
+                $this->db->dbInsert('tb_veiculos_imagem', $img);
             }
         }
 

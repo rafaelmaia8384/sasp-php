@@ -45,7 +45,12 @@
                 '302' => 'demanda/abordagens/abordagens-cadastrar.php',
                 '303' => 'demanda/abordagens/abordagens-perfil.php',
                 '304' => 'demanda/abordagens/abordagens-buscar.php',
-                '305' => 'demanda/abordagens/abordagens-cadastrar-veiculo.php'
+                '305' => 'demanda/abordagens/abordagens-cadastrar-veiculo.php',
+                '306' => 'demanda/abordagens/abordagens-perfil-veiculo.php',
+
+                //Demandas de veículos
+                '401' => 'demanda/veiculos/veiculos-cadastrar.php',
+                '402' => 'demanda/veiculos/veiculos-perfil.php'
             );
 		}
 

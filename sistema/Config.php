@@ -24,7 +24,7 @@
 	//Definições de tempo e prazos
 
 	define('TEMPO_USUARIO_IDAPARELHO_HORAS', 96);						//96 horas para o usuário acessar o sistema com um aparelho diferente.
-	define('TEMPO_USUARIO_SESSAO_EXPIRADA_MINUTOS', 30);				//30 minutos para expirar a sessão do usuário.
+	define('TEMPO_USUARIO_SESSAO_EXPIRADA_MINUTOS', 60);				//30 minutos para expirar a sessão do usuário.
 
 	//Definições de limites
 

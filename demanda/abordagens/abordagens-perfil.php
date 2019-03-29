@@ -15,6 +15,13 @@
                 $result[0]['Imagens'] = $result2;
             }
 
+            $resultVeiculos = $this->db->dbRead("SELECT * FROM tb_veiculos INNER JOIN tb_abordagens_veiculo ON tb_veiculos.id_veiculo = tb_abordagens_veiculo.id_veiculo WHERE tb_abordagens_veiculo.veiculo_excluido = 0 AND tb_abordagens_veiculo.id_abordagem = {$id_abordagem}");
+
+            if (is_array($resultVeiculos)) {
+
+                $result[0]['Veiculos'] = $resultVeiculos;
+            }
+
             $result3 = $this->db->dbRead("SELECT tb_pessoas.* FROM tb_abordagens_pessoa INNER JOIN tb_pessoas ON tb_abordagens_pessoa.id_pessoa = tb_pessoas.id_pessoa WHERE tb_abordagens_pessoa.pessoa_excluida = 0 AND tb_abordagens_pessoa.id_abordagem = {$id_abordagem}");
 
             if (is_array($result3)) {

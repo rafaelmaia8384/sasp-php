@@ -72,16 +72,21 @@
 
             $result1 = $this->db->dbRead("SELECT id FROM tb_abordagens WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
             $result2 = $this->db->dbRead("SELECT id FROM tb_abordagens_imagem WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
-            $result2 = $this->db->dbRead("SELECT id FROM tb_abordagens_veiculo_imagem WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
         
-            if (!is_array($result1) && !is_array($result2) && !is_array($result3)) {
+            if (!is_array($result1) && !is_array($result2)) {
 
                 $this->db->saspError('Imagem não cadastrada no banco de dados.');
             }
         }
-        /*else if ($modulo === 'alertas') {
+        else if ($modulo === 'veiculos') {
+            
+            $result1 = $this->db->dbRead("SELECT id FROM tb_veiculos_imagem WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
 
-        }*/
+            if (!is_array($result1)) {
+
+                $this->db->saspError('Imagem não cadastrada no banco de dados.');
+            }
+        }
 
         //Enviar imagens ao CEPH: bucket 'sasp'
 
@@ -139,11 +144,11 @@
 
             $this->db->dbExecute("UPDATE tb_abordagens SET img_enviada = 1 WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
             $this->db->dbExecute("UPDATE tb_abordagens_imagem SET img_enviada = 1 WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
-            $this->db->dbExecute("UPDATE tb_abordagens_veiculo_imagem SET img_enviada = 1 WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
         }
-        /*else if ($modulo === 'alertas') {
+        else if ($modulo === 'veiculos') {
 
-        }*/
+            $this->db->dbExecute("UPDATE tb_veiculos_imagem SET img_enviada = 1 WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
+        }
 
         $this->db->saspSuccess('Imagens enviadas.');
     }
