@@ -45,12 +45,15 @@
                 '302' => 'demanda/abordagens/abordagens-cadastrar.php',
                 '303' => 'demanda/abordagens/abordagens-perfil.php',
                 '304' => 'demanda/abordagens/abordagens-buscar.php',
-                '305' => 'demanda/abordagens/abordagens-cadastrar-veiculo.php',
-                '306' => 'demanda/abordagens/abordagens-perfil-veiculo.php',
+                '305' => 'demanda/abordagens/abordagens-meus-cadastros.php',
 
                 //Demandas de veículos
                 '401' => 'demanda/veiculos/veiculos-cadastrar.php',
-                '402' => 'demanda/veiculos/veiculos-perfil.php'
+                '402' => 'demanda/veiculos/veiculos-perfil.php',
+
+                //Demandas de informes
+                '501' => 'demanda/informes/informes-cadastrar.php',
+                '502' => 'demanda/informes/informes-meus-cadastros.php'
             );
 		}
 
@@ -115,7 +118,7 @@
             include($this->demandas[$this->demanda]);
 
             //Só será executada a próxima linha se der erro no include acima.
-            $this->db->saspError("Erro ao executar script.\n\nContate o administrador do sistema."); //$this->db->dbEscapeString(json_encode(error_get_last(), JSON_UNESCAPED_UNICODE)));
+            $this->db->saspError("Erro ao executar script.\n\nContate o administrador do sistema.");
         }
 
         function serviceLogCPF($cpf) {

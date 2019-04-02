@@ -2,13 +2,11 @@
 
     if (!empty($_POST['index']) &&
         !empty($_POST['cpf']) &&
-        !empty($_POST['nome_completo']) &&
-        !empty($_POST['nome_da_mae'])) {
+        !empty($_POST['nome_completo'])) {
         
             $index = $_POST['index'];
             $cpf_pessoa = $_POST['cpf'];
             $nome_completo = $_POST['nome_completo'];
-            $nome_da_mae = $_POST['nome_da_mae'];
 
             $limit = ($index - 1) * $search_limit;
 
@@ -16,22 +14,32 @@
             $metaphone = new Metaphone();
 
             $nome_completo_soundex = $metaphone->getPhraseMetaphone($nome_completo);
-            $nome_da_mae_soundex = $metaphone->getPhraseMetaphone($nome_da_mae);
-
             $nome_completo_soundex = getBooleanNames($nome_completo_soundex);
-            $nome_da_mae_soundex = getBooleanNames($nome_da_mae_soundex);
 
             $conditions = '';
 
-            if ($cpf_pessoa !== '-1') {
+            if ($cpf_pessoa === '-1' && $nome_completo === '-1') {
 
-                $conditions .= " cpf = {$cpf_pessoa} OR";
+                $this->db->saspError('Informações insuficientes.');
             }
 
-            $conditions .=  " MATCH (nome_completo_soundex) AGAINST ('{$nome_completo_soundex}' IN BOOLEAN MODE)";
-            //Talvez mudar o "OR" para "AND" ???
-            $conditions .= " OR MATCH (nome_da_mae_soundex) AGAINST ('{$nome_da_mae_soundex}' IN BOOLEAN MODE) ";
- 
+            if ($cpf_pessoa !== '-1') {
+
+                $conditions .= " cpf = {$cpf_pessoa} ";
+            }
+
+            if ($nome_completo !== '-1') {
+
+                if ($cpf_pessoa !== '-1') {
+
+                    $conditions .=  " OR MATCH (nome_completo_soundex) AGAINST ('{$nome_completo_soundex}' IN BOOLEAN MODE)";
+                }
+                else {
+
+                    $conditions .=  " MATCH (nome_completo_soundex) AGAINST ('{$nome_completo_soundex}' IN BOOLEAN MODE)";
+                }
+            }
+        
             $result = $this->db->dbRead("SELECT img_principal, img_busca, id_pessoa, nome_alcunha, nome_completo, areas_de_atuacao, data_registro FROM tb_pessoas WHERE pessoa_excluida = 0 AND ( {$conditions} ) ORDER BY ( ( num_visualizacoes * 100 ) / DATEDIFF(NOW(), data_registro) ) DESC LIMIT {$limit}, {$search_limit}");
 
             if (is_array($result)) {

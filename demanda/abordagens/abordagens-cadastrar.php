@@ -29,8 +29,6 @@
         }
         while (is_array($result));
 
-
-
         $abordagem = array(
 
             'id_abordagem'          => $id_abordagem,
@@ -101,8 +99,7 @@
                 $veiculo = array(
 
                     'id_veiculo'    => $id_veiculo,
-                    'id_abordagem'  => $id_abordagem,
-                    'veiculo_excluido'  => 0
+                    'id_abordagem'  => $id_abordagem
                 );
 
                 $this->db->dbInsert('tb_abordagens_veiculo', $veiculo);

@@ -87,6 +87,19 @@
                 $this->db->saspError('Imagem não cadastrada no banco de dados.');
             }
         }
+        else if ($modulo === 'informes') {
+            
+            $result1 = $this->db->dbRead("SELECT id FROM tb_informes_imagem WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
+
+            if (!is_array($result1)) {
+
+                $this->db->saspError('Imagem não cadastrada no banco de dados.');
+            }
+        }
+        else {
+
+            $this->db->saspError('Módulo não encontrado.');
+        }
 
         //Enviar imagens ao CEPH: bucket 'sasp'
 
@@ -148,6 +161,14 @@
         else if ($modulo === 'veiculos') {
 
             $this->db->dbExecute("UPDATE tb_veiculos_imagem SET img_enviada = 1 WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
+        }
+        else if ($modulo === 'informes') {
+
+            $this->db->dbExecute("UPDATE tb_informes_imagem SET img_enviada = 1 WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
+        }
+        else {
+
+            $this->db->saspError('Módulo não encontrado.');
         }
 
         $this->db->saspSuccess('Imagens enviadas.');
