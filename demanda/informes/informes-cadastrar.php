@@ -8,6 +8,7 @@
         !empty($_POST['usuario_longitude'])	&&
         !empty($_POST['informe'])	&&
         !empty($_POST['latitude'])	&&
+        !empty($_POST['senha'])	&&
 		!empty($_POST['longitude'])) {
 
         $cpf_usuario = $_POST['cpf_usuario'];
@@ -15,6 +16,7 @@
         $area_opm = $_POST['area_opm'];
         $municipio = $_POST['municipio'];
         $texto_informe = $_POST['informe'];
+        $senha = hash('sha512', $_POST['senha']);
 
         $usuario_latitude = $_POST['usuario_latitude'];
         $usuario_latitude = str_replace(',', '.', $usuario_latitude);
@@ -42,11 +44,28 @@
             'area_opm'              => $area_opm,
             'municipio'             => $municipio,
             'informe'               => $texto_informe,
-            'latitude'              => $latitude,
-            'longitude'             => $longitude,
-            'usuario_latitude'      => $usuario_latitude,
-            'usuario_longitude'     => $usuario_longitude
+            'senha'                 => $senha
         );
+
+        if ($latitude !== '-1') {
+
+            $informe['latitude'] = $latitude;
+        }
+
+        if ($longitude !== '-1') {
+
+            $informe['longitude'] = $longitude;
+        }
+
+        if ($usuario_latitude !== '-1') {
+
+            $informe['usuario_latitude'] = $usuario_latitude;
+        }
+
+        if ($usuario_longitude !== '-1') {
+
+            $informe['usuario_longitude'] = $usuario_longitude;
+        }
 
         $this->db->dbInsert('tb_informes', $informe);
 
@@ -78,7 +97,7 @@
 
                 $pessoa = array();
 
-                if ($pessoas[$a]['servidor_publico'] === '1') {
+                if ($pessoas[$a]['servidor_estadual'] === '1') {
 
                     require 'sistema/MetaphonePTBR.php';
                     $metaphone = new Metaphone();
@@ -90,7 +109,7 @@
 
                         'id_informe'            => $id_informe,
                         'id_pessoa'             => $pessoas[$a]['id_pessoa'],
-                        'servidor_publico'       => $pessoas[$a]['servidor_publico'],
+                        'servidor_estadual'     => $pessoas[$a]['servidor_estadual'],
                         'servidor_matricula'    => $pessoas[$a]['servidor_matricula'],
                         'servidor_nome'         => $nome,
                         'servidor_nome_soundex' => $nome_soundex,

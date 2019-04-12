@@ -1,0 +1,5 @@
+server@172.16.150.30
+senha:saspserver123
+
+MYSQL:
+root/rafael110786MYSQL

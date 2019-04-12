@@ -62,8 +62,9 @@
 
             $result1 = $this->db->dbRead("SELECT id FROM tb_pessoas WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
             $result2 = $this->db->dbRead("SELECT id FROM tb_pessoas_imagem WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
+            $result3 = $this->db->dbRead("SELECT id FROM tb_pessoas_marca_corporal WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
         
-            if (!is_array($result1) && !is_array($result2)) {
+            if (!is_array($result1) && !is_array($result2) && !is_array($result3)) {
 
                 $this->db->saspError('Imagem não cadastrada no banco de dados.');
             }
@@ -152,6 +153,7 @@
 
             $this->db->dbExecute("UPDATE tb_pessoas SET img_enviada = 1 WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
             $this->db->dbExecute("UPDATE tb_pessoas_imagem SET img_enviada = 1 WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
+            $this->db->dbExecute("UPDATE tb_pessoas_marca_corporal SET img_enviada = 1 WHERE img_busca = '{$imgBuscaName}' AND img_principal = '{$imgPrincipalName}' LIMIT 1");
         }
         else if ($modulo === 'abordagens') { //Demais modulos
 

@@ -75,7 +75,7 @@
 			if (!empty($_POST['cpf'])) {
 
 				$usuario = $_POST['cpf'];
-			}
+            }
 
 			$post_content = json_encode($_POST, JSON_UNESCAPED_UNICODE);
 

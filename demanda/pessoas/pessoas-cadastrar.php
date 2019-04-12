@@ -5,8 +5,8 @@
         !empty($_POST['nome_alcunha']) &&
         !empty($_POST['nome_completo']) &&
         !empty($_POST['nome_da_mae']) &&
-        !empty($_POST['cpf']) &&
-        !empty($_POST['rg']) &&
+        !empty($_POST['cpf_pessoa']) &&
+        !empty($_POST['rg_pessoa']) &&
         !empty($_POST['data_nascimento']) &&
         !empty($_POST['crt_cor_pele']) &&
         !empty($_POST['crt_cor_olhos']) &&
@@ -26,8 +26,8 @@
         $nome_alcunha = $_POST['nome_alcunha'];
         $nome_completo = $_POST['nome_completo'];
         $nome_da_mae = $_POST['nome_da_mae'];
-        $cpf_pessoa = $_POST['cpf'];
-        $rg = $_POST['rg'];
+        $cpf_pessoa = $_POST['cpf_pessoa'];
+        $rg_pessoa = $_POST['rg_pessoa'];
         $data_nascimento = $_POST['data_nascimento'];
         $crt_cor_pele = $_POST['crt_cor_pele'];
         $crt_cor_olhos = $_POST['crt_cor_olhos'];
@@ -64,14 +64,14 @@
             $nome_da_mae = '';
         }
 
-        if ($cpf == 'null') {
+        if ($cpf_pessoa == 'null') {
 
-            $cpf = '0';
+            $cpf_pessoa = '0';
         }
 
-        if ($rg == 'null') {
+        if ($rg_pessoa == 'null') {
 
-            $rg = '0';
+            $rg_pessoa = '0';
         }
 
         if ($data_nascimento == 'null') {
@@ -105,8 +105,8 @@
             'nome_completo'             => $nome_completo,
             'nome_completo_soundex'     => $nome_completo_soundex,
             'nome_da_mae'               => $nome_da_mae,
-            'cpf'                       => $cpf_pessoa,
-            'rg'                        => $rg,
+            'cpf_pessoa'                => $cpf_pessoa,
+            'rg_pessoa'                 => $rg_pessoa,
             'data_nascimento'           => $data_nascimento,
 
             'historico_criminal'        => $historico_criminal,
@@ -131,6 +131,37 @@
 
         $this->db->dbInsert('tb_pessoas', $pessoa);
 
+        if (!empty($_POST['marcas']) && is_array($_POST['marcas'])) {
+
+            $marcas = $_POST['marcas'];
+            $max = count($marcas);
+
+            for ($a = 0; $a < $max; $a++) {
+
+                $marca = array (
+
+                    'id_pessoa'         => $id_pessoa,
+                    'cpf_usuario'       => $cpf,
+                    'img_busca'         => $marcas[$a]['img_busca'],
+                    'img_principal'     => $marcas[$a]['img_principal'],
+                    'img_enviada'       => 0,
+                    'marca_tipo'        => $marcas[$a]['marca_tipo'],
+                    'parte_corpo'       => $marcas[$a]['parte_corpo']
+                );
+
+                if ($marcas[$a]['descricao'] !== 'null') {
+
+                    $descricao = ucwords(strtolower(trim($marcas[$a]['descricao'])));
+                    $descricao_soundex = $metaphone->getPhraseMetaphone($descricao);
+            
+                    $marca['descricao'] = $descricao;
+                    $marca['descricao_soundex'] = $descricao_soundex;
+                }
+
+                $this->db->dbInsert('tb_pessoas_marca_corporal', $marca);
+            }
+        }
+
         if (!empty($_POST['imagens']) && is_array($_POST['imagens'])) {
 
             $imagens = $_POST['imagens'];
@@ -145,8 +176,7 @@
                     'img_busca'         => $imagens[$a]['img_busca'],
                     'img_principal'     => $imagens[$a]['img_principal'],
                     'img_enviada'       => 0,
-                    'imagem_excluida'   => 0,
-                    'data_registro'     => $agora
+                    'imagem_excluida'   => 0
                 );
 
                 $this->db->dbInsert('tb_pessoas_imagem', $img);

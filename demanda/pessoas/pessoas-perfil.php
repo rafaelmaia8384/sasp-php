@@ -8,6 +8,13 @@
 
         if (is_array($result)) {
 
+            $result1 = $this->db->dbRead("SELECT * FROM tb_pessoas_marca_corporal WHERE marca_excluida = 0 AND img_enviada = 1 AND id_pessoa = {$id_pessoa}");
+
+            if (is_array($result1)) {
+
+                $result[0]['Marcas'] = $result1;
+            }
+
             $result2 = $this->db->dbRead("SELECT * FROM tb_pessoas_imagem WHERE imagem_excluida = 0 AND img_enviada = 1 AND id_pessoa = {$id_pessoa}");
 
             if (is_array($result2)) {

@@ -41,14 +41,14 @@
             $atualizacao['nome_da_mae_soundex'] = $nome_da_mae_soundex;
         }
 
-        if (!empty($_POST['cpf'])) {
+        if (!empty($_POST['cpf_pessoa'])) {
 
-            $atualizacao['cpf'] = $_POST['cpf'];
+            $atualizacao['cpf_pessoa'] = $_POST['cpf_pessoa'];
         }
 
-        if (!empty($_POST['rg'])) {
+        if (!empty($_POST['rg_pessoa'])) {
 
-            $atualizacao['rg'] = $_POST['rg'];
+            $atualizacao['rg_pessoa'] = $_POST['rg_pessoa'];
         }
 
         if (!empty($_POST['data_nascimento'])) {
@@ -75,14 +75,14 @@
                 $this->db->dbExecute("UPDATE tb_pessoas_atualizacoes SET nome_da_mae = '{$atualizacao['nome_da_mae']}', nome_da_mae_soundex = '{$atualizacao['nome_da_mae_soundex']}' WHERE cpf_usuario = {$cpf} AND id_pessoa = {$id_pessoa} LIMIT 1");
             }
 
-            if (array_key_exists('cpf', $atualizacao)) {
+            if (array_key_exists('cpf_pessoa', $atualizacao)) {
 
-                $this->db->dbExecute("UPDATE tb_pessoas_atualizacoes SET cpf = '{$atualizacao['cpf']}' WHERE cpf_usuario = {$cpf} AND id_pessoa = {$id_pessoa} LIMIT 1");
+                $this->db->dbExecute("UPDATE tb_pessoas_atualizacoes SET cpf_pessoa = '{$atualizacao['cpf']}' WHERE cpf_usuario = {$cpf} AND id_pessoa = {$id_pessoa} LIMIT 1");
             }
 
-            if (array_key_exists('rg', $atualizacao)) {
+            if (array_key_exists('rg_pessoa', $atualizacao)) {
 
-                $this->db->dbExecute("UPDATE tb_pessoas_atualizacoes SET rg = '{$atualizacao['rg']}' WHERE cpf_usuario = {$cpf} AND id_pessoa = {$id_pessoa} LIMIT 1");
+                $this->db->dbExecute("UPDATE tb_pessoas_atualizacoes SET rg_pessoa = '{$atualizacao['rg']}' WHERE cpf_usuario = {$cpf} AND id_pessoa = {$id_pessoa} LIMIT 1");
             }
 
             if (array_key_exists('data_nascimento', $atualizacao)) {

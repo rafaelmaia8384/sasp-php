@@ -39,6 +39,7 @@
                 '206' => 'demanda/pessoas/pessoas-buscar-pessoa.php',
                 '207' => 'demanda/pessoas/pessoas-buscar-pessoa-simple.php',
                 '208' => 'demanda/pessoas/pessoas-atualizar-perfil.php',
+                '209' => 'demanda/pessoas/pessoas-buscar-pessoa-marca.php',
 
                 //Demandas de abordagens
                 '301' => 'demanda/abordagens/abordagens-ultimos-cadastros.php',
@@ -53,7 +54,8 @@
 
                 //Demandas de informes
                 '501' => 'demanda/informes/informes-cadastrar.php',
-                '502' => 'demanda/informes/informes-meus-cadastros.php'
+                '502' => 'demanda/informes/informes-meus-cadastros.php',
+                '503' => 'demanda/informes/informes-perfil.php'
             );
 		}
 

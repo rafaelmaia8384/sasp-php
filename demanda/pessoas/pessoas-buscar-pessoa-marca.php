@@ -1,46 +1,35 @@
 <?php
 
     if (!empty($_POST['index']) &&
-        !empty($_POST['cpf_pessoa']) &&
-        !empty($_POST['nome_completo'])) {
+        !empty($_POST['tipo_marca']) &&
+        !empty($_POST['descricao']) &&
+        !empty($_POST['parte_corpo'])) {
         
             $index = $_POST['index'];
-            $cpf_pessoa = $_POST['cpf_pessoa'];
-            $nome_completo = $_POST['nome_completo'];
+            $tipo_marca = $_POST['tipo_marca'];
+            $descricao = $_POST['descricao'];
+            $parte_corpo = $_POST['parte_corpo'];
 
             $limit = ($index - 1) * $search_limit;
 
-            require 'sistema/MetaphonePTBR.php';
-            $metaphone = new Metaphone();
-
-            $nome_completo_soundex = $metaphone->getPhraseMetaphone($nome_completo);
-            $nome_completo_soundex = getBooleanNames($nome_completo_soundex);
-
             $conditions = '';
 
-            if ($cpf_pessoa === '-1' && $nome_completo === '-1') {
+            if ($descricao !== 'null') {
 
-                $this->db->saspError('Informações insuficientes.');
+                require 'sistema/MetaphonePTBR.php';
+                $metaphone = new Metaphone();
+
+                $descricao = $metaphone->getPhraseMetaphone($descricao);
+                $descricao = getBooleanNames($descricao);
+
+                $conditions .= " AND MATCH (descricao_soundex) AGAINST ('{$descricao}' IN BOOLEAN MODE) ";
             }
 
-            if ($cpf_pessoa !== '-1') {
-
-                $conditions .= " cpf_pessoa = {$cpf_pessoa} ";
-            }
-
-            if ($nome_completo !== '-1') {
-
-                if ($cpf_pessoa !== '-1') {
-
-                    $conditions .=  " OR MATCH (nome_completo_soundex) AGAINST ('{$nome_completo_soundex}' IN BOOLEAN MODE)";
-                }
-                else {
-
-                    $conditions .=  " MATCH (nome_completo_soundex) AGAINST ('{$nome_completo_soundex}' IN BOOLEAN MODE)";
-                }
-            }
-        
-            $result = $this->db->dbRead("SELECT img_principal, img_busca, id_pessoa, nome_alcunha, nome_completo, areas_de_atuacao, data_registro FROM tb_pessoas WHERE pessoa_excluida = 0 AND ( {$conditions} ) ORDER BY ( ( num_visualizacoes * 100 ) / DATEDIFF(NOW(), data_registro) ) DESC LIMIT {$limit}, {$search_limit}");
+            $result = $this->db->dbRead(
+                "SELECT DISTINCT tb_pessoas.* FROM tb_pessoas INNER JOIN tb_pessoas_marca_corporal ON tb_pessoas.id_pessoa = tb_pessoas_marca_corporal.id_pessoa ".
+                "WHERE tb_pessoas.pessoa_excluida = 0 AND tb_pessoas_marca_corporal.marca_excluida = 0 AND tb_pessoas_marca_corporal.marca_tipo = {$tipo_marca} AND parte_corpo = {$parte_corpo} {$conditions}".
+                "ORDER BY ( ( tb_pessoas.num_visualizacoes * 100 ) / DATEDIFF(NOW(), tb_pessoas.data_registro) ) DESC LIMIT {$limit}, {$search_limit}"
+            );
 
             if (is_array($result)) {
 
